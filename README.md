@@ -69,27 +69,57 @@ git submodule update --init --recursive
 
 ### Configuration
 
-Add the following to your `config.toml`:
+Add the following to your `config.yaml`:
 
-```toml
-baseURL = 'http://example.org/'
-languageCode = 'en-us'
-title = 'Your Site Title'
-theme = "shibui"
+```yaml
+baseURL: "http://example.org/"
+languageCode: "en-us"
+title: "example"
+theme: "shibui"
 
-[params]
-  author = "Your Name"
-  email = "your.email@example.com"
+params:
+  author:
+    name: "example"
+    email: "example@example.com"
 
-[menu]
-  [[menu.main]]
-    name = "Posts"
-    url = "/posts/"
-    weight = 1
-  [[menu.main]]
-    name = "About"
-    url = "/about/"
-    weight = 2
+markup:
+  defaultMarkdownHandler: "goldmark"
+  goldmark:
+    renderer:
+      unsafe: true
+  highlight:
+    codeFences: true
+    guessSyntax: true
+    lineNos: false
+    noClasses: true
+    tabWidth: 4
+    style: "algol_nu"
+  tableOfContents:
+    startLevel: 2
+    endLevel: 4
+    ordered: true
+
+menu:
+  main:
+    - name: "Posts"
+      url: "/posts/"
+      weight: 1
+    - name: "Tags"
+      url: "/tags/"
+      weight: 2
+
+build:
+  writeStats: true
+
+frontmatter:
+  date: ["date", "publishDate", "lastmod"]
+  expiryDate: ["expiryDate"]
+  lastmod: [":git", "lastmod", "date", "publishDate"]
+  publishDate: ["publishDate", "date"]
+
+caches:
+  images:
+    dir: ":cacheDir/images"
 ```
 
 ### Page Configuration
